@@ -18,8 +18,8 @@ class BandageBehavior : IBandageBehavior {
     }
 
     override fun guideUpgrade(
-      guideUpgradeData: DynamicBandageData.GuideUpgradeData,
-      closeCurActivity: Boolean,
+        guideUpgradeData: DynamicBandageData.GuideUpgradeData,
+        closeCurActivity: Boolean,
     ) {
 
     }
@@ -38,6 +38,6 @@ class BandageBehavior : IBandageBehavior {
     }
 
     override fun uploadCrash(throwable: Throwable) {
-        println("uploadCrash: " + Log.getStackTraceString(throwable))
+        println("uploadCrash(): " + Log.getStackTraceString(throwable))
     }
 }

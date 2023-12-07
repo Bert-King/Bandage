@@ -14,6 +14,11 @@ android {
         versionName "1.0"
     }
 
+    buildFeatures {
+        dataBinding true
+    }
+
+
     buildTypes {
         release {
             minifyEnabled false
@@ -32,4 +37,21 @@ android {
 dependencies {
     implementation 'com.github.tiann:FreeReflection:3.1.0'
     implementation project(":bandage")
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.10"
+    implementation "androidx.constraintlayout:constraintlayout:2.1.4"
+    // https://developer.android.google.cn/kotlin/ktx?hl=en#core
+    implementation "androidx.core:core-ktx:1.8.0"
+    // https://developer.android.google.cn/kotlin/ktx?hl=en#collection
+    implementation "androidx.collection:collection-ktx:1.2.0"
+    // https://developer.android.google.cn/kotlin/ktx?hl=en#lifecycle
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
+    // https://developer.android.google.cn/kotlin/ktx?hl=en#livedata
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
+
+
+    // https://developer.android.google.cn/kotlin/ktx?hl=en#room
+    implementation "androidx.room:room-ktx:2.4.3"
+
+    //https://developer.android.google.cn/kotlin/ktx?hl=en#viewmodel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
 }

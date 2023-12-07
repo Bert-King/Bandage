@@ -30,15 +30,15 @@ class SampleApplication : Application() {
                     "at com.panda912.bandage.sample.MainActivity.\$r8\$lambda\$DDlE6wDlIjCyOonj-NgrVOem29Q(Unknown Source:0)\n" +
                     "at com.panda912.bandage.sample.MainActivity\$\$ExternalSyntheticLambda0.onClick(Unknown Source:0)\n" +
                     "at android.view.View.performClick(View.java:7506)"
-        val data = DynamicBandageData(
+        val dataOfArithmeticException = DynamicBandageData(
             process = "all",
             exceptionMatch = DynamicBandageData.ExceptionMatch("java.lang.ArithmeticException", ""),
             stacks = stack.lines().map { it.trim().replace(Regex("(at |\\([^\\)]*\\))"), "") },
             causes = null,
-            closeCurActivity = false,
+            closeCurActivity = true,
             loadPatch = false,
         )
 
-        Bandage.addDynamicBandageData(listOf(data))
+        Bandage.addDynamicBandageData(listOf(dataOfArithmeticException))
     }
 }

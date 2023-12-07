@@ -6,6 +6,7 @@ import com.panda912.bandage.internal.data.DynamicBandageData.GuideUpgradeData
  * Created by panda on 2021/12/13 18:19
  */
 object BandageHelper {
+    const val TAG = "BandageHelper"
 
     fun startRouter(router: String) {
         Bandage.config.behavior.startRouter(router)
