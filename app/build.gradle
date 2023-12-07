@@ -13,7 +13,8 @@ android {
         versionCode 1
         versionName "1.0"
     }
-
+    // 开启DataBinding
+    // https://developer.android.google.cn/jetpack/androidx/releases/databinding?hl=zh-cn
     buildFeatures {
         dataBinding true
     }
