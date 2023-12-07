@@ -1,6 +1,5 @@
 package com.panda912.bandage.internal.hook.activity_thread_hook
 
-import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Handler
 import android.util.SparseArray
@@ -83,7 +82,8 @@ internal object ActivityThreadHandlerHooker {
      * @param swap 用于替换系统ActivityThread的Handler的函数
      */
     private fun swapActivityThreadHandlerCallback(swap: (Handler, Handler.Callback?) -> Handler.Callback?) {
-        val mHField: Field = activityThreadClass.getDeclaredField("mH").apply { isAccessible = true }
+        val mHField: Field =
+            activityThreadClass.getDeclaredField("mH").apply { isAccessible = true }
         val mH = mHField[activityThreadInstance] as Handler
 
         val mCallbackField =
@@ -108,6 +108,7 @@ internal object ActivityThreadHandlerHooker {
                 msgs.put(159, ActivityThreadFixMessage(159, "EXECUTE_TRANSACTION"))
             }
         } else {
+            // http://androidxref.com/8.1.0_r33/xref/frameworks/base/core/java/android/app/ActivityThread.java
             msgs.put(100, ActivityThreadFixMessage(100, "LAUNCH_ACTIVITY"))
             msgs.put(101, ActivityThreadFixMessage(101, "PAUSE_ACTIVITY"))
             msgs.put(103, ActivityThreadFixMessage(103, "STOP_ACTIVITY_SHOW"))

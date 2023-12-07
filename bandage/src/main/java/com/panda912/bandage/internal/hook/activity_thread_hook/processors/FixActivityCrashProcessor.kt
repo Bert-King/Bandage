@@ -11,8 +11,17 @@ import com.panda912.bandage.utils.ActivityManager
 import com.panda912.bandage.utils.isOutOfMemoryError
 
 
+internal const val RESUME_ACTIVITY = "RESUME_ACTIVITY"
+internal const val PAUSE_ACTIVITY = "PAUSE_ACTIVITY"
+internal const val STOP_ACTIVITY_SHOW = "STOP_ACTIVITY_SHOW"
+internal const val STOP_ACTIVITY_HIDE = "STOP_ACTIVITY_HIDE"
+internal const val EXECUTE_TRANSACTION = "EXECUTE_TRANSACTION"
+
 /**
- * Created by panda on 2021/12/6 17:04
+ * 处理Activity的Crash问题
+ *
+ * 如果发生Crash，则结束 该Activity
+ *
  */
 internal class FixActivityCrashProcessor(
     private val mH: Handler?,
@@ -47,11 +56,12 @@ internal class FixActivityCrashProcessor(
         val msgName = message.msgName
 
         when (msgName) {
-            "RESUME_ACTIVITY",
-            "PAUSE_ACTIVITY",
-            "STOP_ACTIVITY_SHOW",
-            "STOP_ACTIVITY_HIDE",
-            "EXECUTE_TRANSACTION" -> {
+            RESUME_ACTIVITY,
+            PAUSE_ACTIVITY,
+            STOP_ACTIVITY_SHOW,
+            STOP_ACTIVITY_HIDE,
+            EXECUTE_TRANSACTION,
+            -> {
                 BandageLogger.w(TAG, "finish fatal activity.", th)
                 val activity: Activity? = ActivityManager.getInstance().getCurActivity()
                 if (!ActivityManager.getInstance().isDestroyed(activity)) {

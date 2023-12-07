@@ -10,6 +10,10 @@ import java.util.concurrent.CopyOnWriteArrayList
 /**
  * 收集Activity信息
  *
+ * 思考：这里为什么要用SoftReference？
+ *
+ * 思考：这里为什么要用CopyOnWriteArrayList？
+ * 在并发情况下，性能更好
  *
  */
 class ActivityManager : Application.ActivityLifecycleCallbacks {
@@ -26,7 +30,7 @@ class ActivityManager : Application.ActivityLifecycleCallbacks {
             }
 
     }
-
+    // CopyOnWriteArrayList是基于ArrayList实现的，好处是能够保证并行操作的安全性
     private val activityList = CopyOnWriteArrayList<SoftReference<Activity>>()
 
     fun getCurActivity(): Activity? {
