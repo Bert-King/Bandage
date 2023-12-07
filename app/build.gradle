@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -13,7 +14,7 @@ android {
         versionCode 1
         versionName "1.0"
     }
-    // 开启DataBinding
+    // 开启DataBinding 需要使用kapt插件
     // https://developer.android.google.cn/jetpack/androidx/releases/databinding?hl=zh-cn
     buildFeatures {
         dataBinding true
