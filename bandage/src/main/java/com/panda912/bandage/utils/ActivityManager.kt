@@ -14,10 +14,7 @@ class ActivityManager : Application.ActivityLifecycleCallbacks {
     private val activityList = CopyOnWriteArrayList<SoftReference<Activity>>()
 
     fun getCurActivity(): Activity? {
-        if (activityList.isEmpty()) {
-            return null
-        }
-        return activityList[activityList.size - 1]?.get()
+        return activityList.lastOrNull()?.get()
     }
 
     fun isDestroyed(activity: Activity?): Boolean =
