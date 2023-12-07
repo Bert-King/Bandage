@@ -1,9 +1,11 @@
 package com.panda912.bandage.internal.data
 
 /**
- * Created by panda on 2021/12/13 18:01
+ * CrashData数据类
+ * 存储崩溃数据
+ * 包括抛出的异常和时间戳
  */
 data class CrashData(
-  val throwable: Throwable,
-  val timestamp: Long,
+    val throwable: Throwable, // 抛出的异常
+    val timestamp: Long // 时间戳
 )

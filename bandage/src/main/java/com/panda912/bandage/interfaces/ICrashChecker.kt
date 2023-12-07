@@ -8,13 +8,13 @@ import com.panda912.bandage.internal.data.CrashData
 fun interface ICrashChecker {
 
     /**
-     * check whether need throw crash and exit app.
-     * @return true intercept crash and not throw, otherwise return false.
+     * 检查是否需要抛出崩溃并退出应用。
+     * @return 如果拦截了崩溃并且不抛出异常则返回true，否则返回false。
      */
     fun isHopeful(
-      crashDataList: List<CrashData>,
-      times: Int,
-      thread: Thread,
-      throwable: Throwable,
+        crashDataList: List<CrashData>,
+        times: Int,
+        thread: Thread,
+        throwable: Throwable
     ): Boolean
 }

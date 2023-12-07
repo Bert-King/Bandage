@@ -9,11 +9,20 @@ import com.panda912.bandage.internal.data.CrashData
  */
 class SerialCrashChecker : ICrashChecker {
 
+    /**
+     * 判断是否希望修复的崩溃
+     *
+     * @param crashDataList 崩溃数据列表
+     * @param times 次数
+     * @param thread 线程
+     * @param throwable 异常
+     * @return 如果希望修复则返回true，否则返回false
+     */
     override fun isHopeful(
-      crashDataList: List<CrashData>,
-      times: Int,
-      thread: Thread,
-      throwable: Throwable,
+        crashDataList: List<CrashData>,
+        times: Int,
+        thread: Thread,
+        throwable: Throwable,
     ): Boolean {
         if (crashDataList.size < 3) {
             return true
@@ -33,8 +42,8 @@ class SerialCrashChecker : ICrashChecker {
         }
         return true
     }
+}
 
-    private fun isSameCrash(th1: Throwable, th2: Throwable): Boolean {
-        return Log.getStackTraceString(th1) == Log.getStackTraceString(th2)
-    }
+private fun isSameCrash(th1: Throwable, th2: Throwable): Boolean {
+    return Log.getStackTraceString(th1) == Log.getStackTraceString(th2)
 }
