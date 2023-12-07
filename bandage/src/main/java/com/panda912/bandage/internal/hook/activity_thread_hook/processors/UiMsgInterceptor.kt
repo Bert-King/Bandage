@@ -9,13 +9,18 @@ import com.panda912.bandage.internal.BandageLogger
 import java.io.IOException
 
 /**
- * Created by panda on 2021/12/7 10:25
+ * 内部类，UiMsgInterceptor处理器
  */
 internal class UiMsgInterceptor : Processor {
     companion object {
         private const val TAG = "UiMsgInterceptor"
     }
 
+    /**
+     * 处理方法，用于处理Processor链路
+     * @param chain 处理链路
+     * @return 处理结果
+     */
     override fun process(chain: Processor.Chain): Boolean {
         val message = chain.input()
 
@@ -45,6 +50,10 @@ internal class UiMsgInterceptor : Processor {
         }
     }
 
+    /**
+     * 关闭文件描述符
+     * @param bundle 文件描述符bundle
+     */
     private fun closeFD(bundle: Bundle?) {
         if (bundle?.containsKey("read_file_descripter") == true) {
             val obj = bundle.get("read_file_descripter")
@@ -57,5 +66,4 @@ internal class UiMsgInterceptor : Processor {
             }
         }
     }
-
 }

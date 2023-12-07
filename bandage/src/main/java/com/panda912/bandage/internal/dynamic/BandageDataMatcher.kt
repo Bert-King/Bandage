@@ -8,11 +8,18 @@ import com.panda912.bandage.internal.BandageLogger
 import kotlin.math.min
 
 /**
- * Created by panda on 2022/2/8 17:10
+ * 动态补丁数据匹配器
  */
 internal object BandageDataMatcher {
+
     private const val TAG = "BandageDataMatcher"
 
+    /**
+     * 判断异常信息是否匹配
+     * @param data 动态补丁数据
+     * @param th 异常对象
+     * @return 如果匹配返回true，否则返回false
+     */
     fun isStackMatch(data: DynamicBandageData, th: Throwable): Boolean {
         if (data.stacks.isEmpty()) {
             return false
@@ -62,6 +69,11 @@ internal object BandageDataMatcher {
         return false
     }
 
+    /**
+     * 获取异常链路
+     * @param th 异常对象
+     * @return 异常链路列表
+     */
     private fun getThrowableCauses(th: Throwable): List<Throwable> {
         val list = ArrayList<Throwable>()
         list.add(th)
@@ -76,6 +88,11 @@ internal object BandageDataMatcher {
         return list
     }
 
+    /**
+     * 判断进程名是否匹配
+     * @param data 动态补丁数据
+     * @return 如果匹配返回true，否则返回false
+     */
     fun isProcessMatch(data: DynamicBandageData): Boolean {
         if (data.process == "all") {
             return true

@@ -10,22 +10,35 @@ import com.panda912.bandage.internal.hook.activity_thread_hook.processors.FixSpA
 import com.panda912.bandage.internal.hook.activity_thread_hook.processors.OriginCallbackProcessor
 import com.panda912.bandage.internal.hook.activity_thread_hook.processors.UiMsgInterceptor
 import com.panda912.bandage.internal.BandageLogger
+import java.lang.reflect.Field
 
 /**
- * Created by panda on 2021/12/6 16:35
+ * ActivityThreadHandlerHooker
+ * 功能1：通过反射获取到ActivityThread单例对象
  */
-@SuppressLint("PrivateApi", "DiscouragedPrivateApi", "SoonBlockedPrivateApi")
 internal object ActivityThreadHandlerHooker {
     private const val TAG = "ActivityThreadHandlerHooker"
 
+    /**
+     * 获取ActivityThread类的静态方法currentActivityThread的返回值
+     */
     private val activityThreadClass by lazy { Class.forName("android.app.ActivityThread") }
 
+    /**
+     * 反射 获取ActivityThread类的currentActivityThread方法的返回值
+     */
     private val activityThreadInstance by lazy {
         activityThreadClass.getDeclaredMethod("currentActivityThread").invoke(null)!!
     }
 
+    /**
+     * 用于卸载ActivityThreadHandlerCallback的函数
+     */
     private var uninstallActivityThreadHandlerCallback: (() -> Unit)? = null
 
+    /**
+     * 开始Hook的ActivityThread的Handler
+     */
     fun hook() {
         check(uninstallActivityThreadHandlerCallback == null) {
             "ActivityThreadHandlerHooker already hooked"
@@ -57,13 +70,20 @@ internal object ActivityThreadHandlerHooker {
         }
     }
 
+    /**
+     * 卸载ActivityThreadHandlerCallback的函数
+     */
     private fun unhook() {
         uninstallActivityThreadHandlerCallback?.invoke()
         uninstallActivityThreadHandlerCallback = null
     }
 
+    /**
+     * 用于替换系统ActivityThread的Handler的函数
+     * @param swap 用于替换系统ActivityThread的Handler的函数
+     */
     private fun swapActivityThreadHandlerCallback(swap: (Handler, Handler.Callback?) -> Handler.Callback?) {
-        val mHField = activityThreadClass.getDeclaredField("mH").apply { isAccessible = true }
+        val mHField: Field = activityThreadClass.getDeclaredField("mH").apply { isAccessible = true }
         val mH = mHField[activityThreadInstance] as Handler
 
         val mCallbackField =
@@ -72,6 +92,10 @@ internal object ActivityThreadHandlerHooker {
         mCallbackField[mH] = swap(mH, mCallback)
     }
 
+    /**
+     * 获取修复消息的SparseArray
+     * @return 修复消息的SparseArray，如果不存在则返回null
+     */
     private fun getFixMessages(): SparseArray<ActivityThreadFixMessage>? {
         val msgs = SparseArray<ActivityThreadFixMessage>()
         val sdkInt = Build.VERSION.SDK_INT
@@ -99,6 +123,11 @@ internal object ActivityThreadHandlerHooker {
         return if (msgs.size() != 0) filterValidMessages(msgs) else null
     }
 
+    /**
+     * 过滤有效的消息的函数
+     * @param msgs 消息的SparseArray
+     * @return 过滤后的有效消息的SparseArray，如果不存在则返回null
+     */
     private fun filterValidMessages(msgs: SparseArray<ActivityThreadFixMessage>): SparseArray<ActivityThreadFixMessage> {
         val size = msgs.size()
         val validMsgs = SparseArray<ActivityThreadFixMessage>(size)
