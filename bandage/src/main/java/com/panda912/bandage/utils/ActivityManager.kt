@@ -3,13 +3,29 @@ package com.panda912.bandage.utils
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import com.panda912.bandage.internal.BandageLogger
 import java.lang.ref.SoftReference
 import java.util.concurrent.CopyOnWriteArrayList
 
 /**
- * Created by panda on 2021/12/16 10:13
+ * 收集Activity信息
+ *
+ *
  */
 class ActivityManager : Application.ActivityLifecycleCallbacks {
+
+    companion object {
+        const val TAG = "ActivityManager"
+
+        @Volatile
+        private var instance: ActivityManager? = null
+
+        fun getInstance(): ActivityManager =
+            instance ?: synchronized(this) {
+                instance ?: ActivityManager().also { instance = it }
+            }
+
+    }
 
     private val activityList = CopyOnWriteArrayList<SoftReference<Activity>>()
 
@@ -21,6 +37,7 @@ class ActivityManager : Application.ActivityLifecycleCallbacks {
         activity == null || activity.isFinishing || activity.isDestroyed
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+        BandageLogger.i(TAG, "onActivityCreated: $activity")
         activityList.add(SoftReference(activity))
     }
 
@@ -51,16 +68,5 @@ class ActivityManager : Application.ActivityLifecycleCallbacks {
                 return
             }
         }
-    }
-
-    companion object {
-        @Volatile
-        private var instance: ActivityManager? = null
-
-        fun getInstance(): ActivityManager =
-            instance ?: synchronized(this) {
-                instance ?: ActivityManager().also { instance = it }
-            }
-
     }
 }

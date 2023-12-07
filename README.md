@@ -12,3 +12,11 @@ Bandage : 一个轻量级的处理线上Crash的Android库，它可以帮助你�
 
 
 ![diagram](./media/Bandage-Diagram.png)
+
+
+----
+
+## 思考
+
+1. Android中有几种收集Activity的方式？
+   1.  1. 利用Application.ActivityLifecycleCallbacks （参考：ActivityManager）
