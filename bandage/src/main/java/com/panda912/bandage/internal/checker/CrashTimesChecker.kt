@@ -8,12 +8,12 @@ import com.panda912.bandage.internal.data.CrashData
  */
 class CrashTimesChecker : ICrashChecker {
 
-  override fun isHopeful(
-    crashDataList: List<CrashData>,
-    times: Int,
-    thread: Thread,
-    throwable: Throwable
-  ): Boolean {
-    return times <= 6
-  }
+    override fun isHopeful(
+      crashDataList: List<CrashData>,
+      times: Int,
+      thread: Thread,
+      throwable: Throwable,
+    ): Boolean {
+        return times <= 6
+    }
 }

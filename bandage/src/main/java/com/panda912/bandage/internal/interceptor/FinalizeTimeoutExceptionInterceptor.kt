@@ -11,14 +11,14 @@ import java.util.concurrent.TimeoutException
  */
 internal class FinalizeTimeoutExceptionInterceptor : IExceptionInterceptor {
 
-  override fun getName() = "FinalizeTimeoutExceptionInterceptor"
+    override fun getName() = "FinalizeTimeoutExceptionInterceptor"
 
-  override fun intercept(thread: Thread, throwable: Throwable): Boolean {
-    if (thread.name == "FinalizerWatchdogDaemon" && throwable is TimeoutException) {
-      BandageLogger.i(TAG, "catch FinalizeTimeoutException")
-      BandageHelper.uploadCrash(throwable)
-      return true
+    override fun intercept(thread: Thread, throwable: Throwable): Boolean {
+        if (thread.name == "FinalizerWatchdogDaemon" && throwable is TimeoutException) {
+            BandageLogger.i(TAG, "catch FinalizeTimeoutException")
+            BandageHelper.uploadCrash(throwable)
+            return true
+        }
+        return false
     }
-    return false
-  }
 }

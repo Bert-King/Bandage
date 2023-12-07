@@ -7,32 +7,32 @@ import com.panda912.bandage.internal.data.DynamicBandageData
  */
 internal object BandageDynamicExceptionManager {
 
-  private val dynamicBandageDataList = arrayListOf<DynamicBandageData>()
+    private val dynamicBandageDataList = arrayListOf<DynamicBandageData>()
 
-  fun addData(list: List<DynamicBandageData>?) {
-    synchronized(this) {
-      dynamicBandageDataList.clear()
-      if (!list.isNullOrEmpty()) {
-        dynamicBandageDataList.addAll(list.filter { BandageDataMatcher.isProcessMatch(it) })
-      }
-    }
-  }
-
-  @Synchronized
-  fun getDynamicBandageData(th: Throwable): DynamicBandageData? {
-    if (dynamicBandageDataList.isEmpty()) {
-      return null
+    fun addData(list: List<DynamicBandageData>?) {
+        synchronized(this) {
+            dynamicBandageDataList.clear()
+            if (!list.isNullOrEmpty()) {
+                dynamicBandageDataList.addAll(list.filter { BandageDataMatcher.isProcessMatch(it) })
+            }
+        }
     }
 
-    for (data in dynamicBandageDataList) {
-      if (BandageDataMatcher.isProcessMatch(data) &&    // process √
-        data.exceptionMatch?.isMatch(th) == true &&     // class name && message √
-        BandageDataMatcher.isStackMatch(data, th)       // stack √
-      ) {
-        return data
-      }
+    @Synchronized
+    fun getDynamicBandageData(th: Throwable): DynamicBandageData? {
+        if (dynamicBandageDataList.isEmpty()) {
+            return null
+        }
+
+        for (data in dynamicBandageDataList) {
+            if (BandageDataMatcher.isProcessMatch(data) &&    // process √
+                data.exceptionMatch?.isMatch(th) == true &&     // class name && message √
+                BandageDataMatcher.isStackMatch(data, th)       // stack √
+            ) {
+                return data
+            }
+        }
+        return null
     }
-    return null
-  }
 
 }

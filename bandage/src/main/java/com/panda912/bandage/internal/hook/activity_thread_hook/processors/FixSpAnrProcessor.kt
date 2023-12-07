@@ -8,9 +8,9 @@ import com.panda912.bandage.internal.hook.activity_thread_hook.sp.SpAnrHelper
  */
 internal class FixSpAnrProcessor : Processor {
 
-  override fun process(chain: Processor.Chain): Boolean {
-    val message = chain.input()
-    SpAnrHelper.fix(message)
-    return chain.proceed(message)
-  }
+    override fun process(chain: Processor.Chain): Boolean {
+        val message = chain.input()
+        SpAnrHelper.fix(message)
+        return chain.proceed(message)
+    }
 }

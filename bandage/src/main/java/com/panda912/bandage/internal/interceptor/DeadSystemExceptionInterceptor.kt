@@ -10,26 +10,26 @@ import com.panda912.bandage.IExceptionInterceptor
  */
 internal class DeadSystemExceptionInterceptor : IExceptionInterceptor {
 
-  override fun getName() = "DeadSystemExceptionInterceptor"
+    override fun getName() = "DeadSystemExceptionInterceptor"
 
-  override fun intercept(thread: Thread, throwable: Throwable): Boolean {
-    if (isDeadSystemException(throwable)) {
-      BandageHelper.uploadCrash(throwable)
-      return true
+    override fun intercept(thread: Thread, throwable: Throwable): Boolean {
+        if (isDeadSystemException(throwable)) {
+            BandageHelper.uploadCrash(throwable)
+            return true
+        }
+        return false
     }
-    return false
-  }
 
-  private fun isDeadSystemException(th: Throwable): Boolean {
-    if (Build.VERSION.SDK_INT >= 24 && th is RuntimeException && th.cause is DeadSystemException) {
-      val stackTrace = th.stackTrace
-      if (stackTrace.isNotEmpty()) {
-        val element = stackTrace[0]
-        return element.className == "android.app.servertransaction.PendingTransactionActions\$StopInfo" &&
-            element.fileName == "PendingTransactionActions.java" &&
-            element.methodName == "run"
-      }
+    private fun isDeadSystemException(th: Throwable): Boolean {
+        if (Build.VERSION.SDK_INT >= 24 && th is RuntimeException && th.cause is DeadSystemException) {
+            val stackTrace = th.stackTrace
+            if (stackTrace.isNotEmpty()) {
+                val element = stackTrace[0]
+                return element.className == "android.app.servertransaction.PendingTransactionActions\$StopInfo" &&
+                        element.fileName == "PendingTransactionActions.java" &&
+                        element.methodName == "run"
+            }
+        }
+        return false
     }
-    return false
-  }
 }

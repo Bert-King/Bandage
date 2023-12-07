@@ -7,19 +7,19 @@ import com.panda912.bandage.ILogger
  */
 internal object BandageLogger {
 
-  @Volatile
-  var logger: ILogger? = null
+    @Volatile
+    var logger: ILogger? = null
 
-  @JvmStatic
-  fun i(tag: String, message: String) {
-    val logger = logger ?: return
-    logger.i(tag, message)
-  }
+    @JvmStatic
+    fun i(tag: String, message: String) {
+        val logger = logger ?: return
+        logger.i(tag, message)
+    }
 
-  @JvmStatic
-  fun w(tag: String, message: String, throwable: Throwable? = null) {
-    val logger = logger ?: return
-    logger.w(tag, message, throwable)
-  }
+    @JvmStatic
+    fun w(tag: String, message: String, throwable: Throwable? = null) {
+        val logger = logger ?: return
+        logger.w(tag, message, throwable)
+    }
 
 }

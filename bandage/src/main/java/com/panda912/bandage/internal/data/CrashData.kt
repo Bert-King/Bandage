@@ -5,5 +5,5 @@ package com.panda912.bandage.internal.data
  */
 data class CrashData(
   val throwable: Throwable,
-  val timestamp: Long
+  val timestamp: Long,
 )

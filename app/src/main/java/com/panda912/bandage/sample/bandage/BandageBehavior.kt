@@ -13,28 +13,31 @@ private const val TAG = "BandageBehavior"
 
 class BandageBehavior : IBandageBehavior {
 
-  override fun loadPatch() {
+    override fun loadPatch() {
 
-  }
-
-  override fun guideUpgrade(guideUpgradeData: DynamicBandageData.GuideUpgradeData, closeCurActivity: Boolean) {
-
-  }
-
-  override fun startRouter(router: String) {
-
-  }
-
-  override fun finishCurActivity(throwable: Throwable) {
-    val activity = ActivityManager.getInstance().getCurActivity()
-    if (!ActivityManager.getInstance().isDestroyed(activity)) {
-      activity?.finish()
-      return
     }
-    Log.w(TAG, "can not finish fatal activity: $activity", throwable)
-  }
 
-  override fun uploadCrash(throwable: Throwable) {
-    println("uploadCrash: " + Log.getStackTraceString(throwable))
-  }
+    override fun guideUpgrade(
+      guideUpgradeData: DynamicBandageData.GuideUpgradeData,
+      closeCurActivity: Boolean,
+    ) {
+
+    }
+
+    override fun startRouter(router: String) {
+
+    }
+
+    override fun finishCurActivity(throwable: Throwable) {
+        val activity = ActivityManager.getInstance().getCurActivity()
+        if (!ActivityManager.getInstance().isDestroyed(activity)) {
+            activity?.finish()
+            return
+        }
+        Log.w(TAG, "can not finish fatal activity: $activity", throwable)
+    }
+
+    override fun uploadCrash(throwable: Throwable) {
+        println("uploadCrash: " + Log.getStackTraceString(throwable))
+    }
 }

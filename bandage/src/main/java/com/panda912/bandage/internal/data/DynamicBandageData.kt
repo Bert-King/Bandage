@@ -13,46 +13,46 @@ data class DynamicBandageData(
   val closeCurActivity: Boolean,
   val router: String? = null,
   val loadPatch: Boolean,
-  val guideUpgrade: GuideUpgradeData? = null
+  val guideUpgrade: GuideUpgradeData? = null,
 ) {
 
-  data class ExceptionMatch(
-    val className: String,
-    val messageRegular: String? = null
-  ) {
+    data class ExceptionMatch(
+      val className: String,
+      val messageRegular: String? = null,
+    ) {
 
-    fun isMatch(th: Throwable): Boolean {
-      if (th.javaClass.name != className) {
-        return false
-      }
-      if (messageRegular.isNullOrEmpty()) {
-        return true
-      }
-      val message = th.message
-      if (message.isNullOrEmpty()) {
-        return false
-      }
-      if (messageRegular == th.message || Pattern.matches(messageRegular, message)) {
-        return true
-      }
-      return false
+        fun isMatch(th: Throwable): Boolean {
+            if (th.javaClass.name != className) {
+                return false
+            }
+            if (messageRegular.isNullOrEmpty()) {
+                return true
+            }
+            val message = th.message
+            if (message.isNullOrEmpty()) {
+                return false
+            }
+            if (messageRegular == th.message || Pattern.matches(messageRegular, message)) {
+                return true
+            }
+            return false
+        }
     }
-  }
 
-  data class GuideUpgradeData(
-    val show: Boolean,
-    val title: String,
-    val tips: String,
-    val desc: String,
-    val okBtnText: String
-  )
+    data class GuideUpgradeData(
+      val show: Boolean,
+      val title: String,
+      val tips: String,
+      val desc: String,
+      val okBtnText: String,
+    )
 }
 
 fun removeMatchedCause(list: ArrayList<DynamicBandageData.ExceptionMatch>, th: Throwable) {
-  for (exceptionMatch in list) {
-    if (exceptionMatch.isMatch(th)) {
-      list.remove(exceptionMatch)
-      return
+    for (exceptionMatch in list) {
+        if (exceptionMatch.isMatch(th)) {
+            list.remove(exceptionMatch)
+            return
+        }
     }
-  }
 }

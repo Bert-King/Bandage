@@ -8,33 +8,33 @@ import com.panda912.bandage.IExceptionInterceptor
  */
 internal class ReportSizeConfigurationsInterceptor : IExceptionInterceptor {
 
-  override fun getName() = "ReportSizeConfigurationsInterceptor"
+    override fun getName() = "ReportSizeConfigurationsInterceptor"
 
-  override fun intercept(thread: Thread, throwable: Throwable): Boolean {
-    if (isReportSizeConfigurationsException(throwable)) {
-      BandageHelper.uploadCrash(throwable)
-      BandageHelper.finishFatalActivity(throwable)
-      return true
+    override fun intercept(thread: Thread, throwable: Throwable): Boolean {
+        if (isReportSizeConfigurationsException(throwable)) {
+            BandageHelper.uploadCrash(throwable)
+            BandageHelper.finishFatalActivity(throwable)
+            return true
+        }
+        return false
     }
-    return false
-  }
 
-  private fun isReportSizeConfigurationsException(th: Throwable): Boolean {
-    if (th !is IllegalArgumentException) return false
-    val message = th.message ?: return false
-    if (!message.contains("reportSizeConfigurations: ActivityRecord not found for")) return false
-    val stackTrace = th.stackTrace ?: return false
-    var lastIndex = stackTrace.size - 1
-    while (lastIndex >= 0 && stackTrace.size - lastIndex <= 20) {
-      val element = stackTrace[lastIndex]
-      if (element.className == "android.app.ActivityThread" &&
-        element.fileName == "ActivityThread.java" &&
-        element.methodName == "reportSizeConfigurations"
-      ) {
-        return true
-      }
-      lastIndex--
+    private fun isReportSizeConfigurationsException(th: Throwable): Boolean {
+        if (th !is IllegalArgumentException) return false
+        val message = th.message ?: return false
+        if (!message.contains("reportSizeConfigurations: ActivityRecord not found for")) return false
+        val stackTrace = th.stackTrace ?: return false
+        var lastIndex = stackTrace.size - 1
+        while (lastIndex >= 0 && stackTrace.size - lastIndex <= 20) {
+            val element = stackTrace[lastIndex]
+            if (element.className == "android.app.ActivityThread" &&
+                element.fileName == "ActivityThread.java" &&
+                element.methodName == "reportSizeConfigurations"
+            ) {
+                return true
+            }
+            lastIndex--
+        }
+        return false
     }
-    return false
-  }
 }

@@ -11,59 +11,59 @@ import java.util.concurrent.CopyOnWriteArrayList
  */
 class ActivityManager : Application.ActivityLifecycleCallbacks {
 
-  private val activityList = CopyOnWriteArrayList<SoftReference<Activity>>()
+    private val activityList = CopyOnWriteArrayList<SoftReference<Activity>>()
 
-  fun getCurActivity(): Activity? {
-    if (activityList.isEmpty()) {
-      return null
+    fun getCurActivity(): Activity? {
+        if (activityList.isEmpty()) {
+            return null
+        }
+        return activityList[activityList.size - 1]?.get()
     }
-    return activityList[activityList.size - 1]?.get()
-  }
 
-  fun isDestroyed(activity: Activity?): Boolean =
-    activity == null || activity.isFinishing || activity.isDestroyed
+    fun isDestroyed(activity: Activity?): Boolean =
+        activity == null || activity.isFinishing || activity.isDestroyed
 
-  override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-    activityList.add(SoftReference(activity))
-  }
-
-  override fun onActivityStarted(activity: Activity) {
-
-  }
-
-  override fun onActivityResumed(activity: Activity) {
-
-  }
-
-  override fun onActivityPaused(activity: Activity) {
-
-  }
-
-  override fun onActivityStopped(activity: Activity) {
-
-  }
-
-  override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
-
-  }
-
-  override fun onActivityDestroyed(activity: Activity) {
-    for (softReference in activityList) {
-      if (softReference.get() === activity) {
-        activityList.remove(softReference)
-        return
-      }
+    override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+        activityList.add(SoftReference(activity))
     }
-  }
 
-  companion object {
-    @Volatile
-    private var instance: ActivityManager? = null
+    override fun onActivityStarted(activity: Activity) {
 
-    fun getInstance(): ActivityManager =
-      instance ?: synchronized(this) {
-        instance ?: ActivityManager().also { instance = it }
-      }
+    }
 
-  }
+    override fun onActivityResumed(activity: Activity) {
+
+    }
+
+    override fun onActivityPaused(activity: Activity) {
+
+    }
+
+    override fun onActivityStopped(activity: Activity) {
+
+    }
+
+    override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
+
+    }
+
+    override fun onActivityDestroyed(activity: Activity) {
+        for (softReference in activityList) {
+            if (softReference.get() === activity) {
+                activityList.remove(softReference)
+                return
+            }
+        }
+    }
+
+    companion object {
+        @Volatile
+        private var instance: ActivityManager? = null
+
+        fun getInstance(): ActivityManager =
+            instance ?: synchronized(this) {
+                instance ?: ActivityManager().also { instance = it }
+            }
+
+    }
 }

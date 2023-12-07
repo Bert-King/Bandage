@@ -12,18 +12,21 @@ import java.io.File
  * Created by panda on 2021/12/22 14:07
  */
 internal class WebViewFileNotFoundInterceptor(private val context: Context) :
-  IExceptionInterceptor {
+    IExceptionInterceptor {
 
-  override fun getName() = "WebViewFileNotFoundInterceptor"
+    override fun getName() = "WebViewFileNotFoundInterceptor"
 
-  override fun intercept(thread: Thread, throwable: Throwable): Boolean {
-    if (throwable.cause?.message?.contains("webview_data.lock: open failed: EACCES (Permission denied)") == true) {
-      val appInfo: ApplicationInfo = context.applicationInfo
-      BandageLogger.i(getName(), appInfo.dataDir + " canWrite " + File(appInfo.dataDir).canWrite())
-      BandageHelper.uploadCrash(throwable)
-      Process.killProcess(Process.myPid())
-      return true
+    override fun intercept(thread: Thread, throwable: Throwable): Boolean {
+        if (throwable.cause?.message?.contains("webview_data.lock: open failed: EACCES (Permission denied)") == true) {
+            val appInfo: ApplicationInfo = context.applicationInfo
+            BandageLogger.i(
+                getName(),
+                appInfo.dataDir + " canWrite " + File(appInfo.dataDir).canWrite()
+            )
+            BandageHelper.uploadCrash(throwable)
+            Process.killProcess(Process.myPid())
+            return true
+        }
+        return false
     }
-    return false
-  }
 }

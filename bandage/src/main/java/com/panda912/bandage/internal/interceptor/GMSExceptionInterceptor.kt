@@ -10,18 +10,18 @@ import com.panda912.bandage.IExceptionInterceptor
  */
 internal class GMSExceptionInterceptor : IExceptionInterceptor {
 
-  override fun getName() = "GMSExceptionInterceptor"
+    override fun getName() = "GMSExceptionInterceptor"
 
-  override fun intercept(thread: Thread, throwable: Throwable): Boolean {
-    if (thread.name == "GoogleApiHandler" &&
-      throwable is IllegalStateException &&
-      throwable.message?.contains("Results have already been set") == true &&
-      !throwable.stackTrace.isNullOrEmpty() &&
-      throwable.stackTrace[0].toString().contains("com.google.android.gms")
-    ) {
-      BandageHelper.uploadCrash(throwable)
-      return true
+    override fun intercept(thread: Thread, throwable: Throwable): Boolean {
+        if (thread.name == "GoogleApiHandler" &&
+            throwable is IllegalStateException &&
+            throwable.message?.contains("Results have already been set") == true &&
+            !throwable.stackTrace.isNullOrEmpty() &&
+            throwable.stackTrace[0].toString().contains("com.google.android.gms")
+        ) {
+            BandageHelper.uploadCrash(throwable)
+            return true
+        }
+        return false
     }
-    return false
-  }
 }

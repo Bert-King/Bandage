@@ -15,47 +15,47 @@ import com.panda912.bandage.utils.isOutOfMemoryError
  */
 internal class FixActivityCrashProcessor(
   private val mH: Handler?,
-  private val msgs: SparseArray<ActivityThreadFixMessage>?
+  private val msgs: SparseArray<ActivityThreadFixMessage>?,
 ) : Processor {
-  companion object {
-    private const val TAG = "FixActivityCrashProcessor"
-  }
-
-  override fun process(chain: Processor.Chain): Boolean {
-    if (mH == null) {
-      return false
+    companion object {
+        private const val TAG = "FixActivityCrashProcessor"
     }
 
-    val message = chain.input()
-    val fixMessage = msgs?.get(message.what) ?: return false
+    override fun process(chain: Processor.Chain): Boolean {
+        if (mH == null) {
+            return false
+        }
 
-    try {
-      mH.handleMessage(message)
-    } catch (th: Throwable) {
-      if (th.isOutOfMemoryError()) {
-        throw th
-      } else {
-        finishCrashActivity(fixMessage, th)
-      }
+        val message = chain.input()
+        val fixMessage = msgs?.get(message.what) ?: return false
+
+        try {
+            mH.handleMessage(message)
+        } catch (th: Throwable) {
+            if (th.isOutOfMemoryError()) {
+                throw th
+            } else {
+                finishCrashActivity(fixMessage, th)
+            }
+        }
+
+        return true
     }
 
-    return true
-  }
-
-  private fun finishCrashActivity(message: ActivityThreadFixMessage, th: Throwable) {
-    val msgName = message.msgName
-    if (
-      msgName == "RESUME_ACTIVITY" ||
-      msgName == "PAUSE_ACTIVITY" ||
-      msgName == "STOP_ACTIVITY_SHOW" ||
-      msgName == "STOP_ACTIVITY_HIDE" ||
-      msgName == "EXECUTE_TRANSACTION"
-    ) {
-      BandageLogger.w(TAG, "finish fatal activity.", th)
-      val activity: Activity? = ActivityManager.getInstance().getCurActivity()
-      if (!ActivityManager.getInstance().isDestroyed(activity)) {
-        activity?.finish()
-      }
+    private fun finishCrashActivity(message: ActivityThreadFixMessage, th: Throwable) {
+        val msgName = message.msgName
+        if (
+            msgName == "RESUME_ACTIVITY" ||
+            msgName == "PAUSE_ACTIVITY" ||
+            msgName == "STOP_ACTIVITY_SHOW" ||
+            msgName == "STOP_ACTIVITY_HIDE" ||
+            msgName == "EXECUTE_TRANSACTION"
+        ) {
+            BandageLogger.w(TAG, "finish fatal activity.", th)
+            val activity: Activity? = ActivityManager.getInstance().getCurActivity()
+            if (!ActivityManager.getInstance().isDestroyed(activity)) {
+                activity?.finish()
+            }
+        }
     }
-  }
 }

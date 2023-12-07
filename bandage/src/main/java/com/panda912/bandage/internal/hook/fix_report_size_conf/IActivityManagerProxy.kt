@@ -10,15 +10,18 @@ import java.lang.reflect.Method
  */
 internal class IActivityManagerProxy(private val iActivityManager: Any) : InvocationHandler {
 
-  override fun invoke(proxy: Any?, method: Method?, args: Array<out Any>?): Any? {
-    if (method?.name == "reportSizeConfigurations") {
-      BandageLogger.i(TAG, "proxy: android.app.IActivityManager\$Stub\$Proxy.reportSizeConfigurations")
-      return try {
-        method.invoke(iActivityManager, *(args ?: arrayOfNulls<Any>(0)))
-      } catch (th: Throwable) {
-        null
-      }
+    override fun invoke(proxy: Any?, method: Method?, args: Array<out Any>?): Any? {
+        if (method?.name == "reportSizeConfigurations") {
+            BandageLogger.i(
+                TAG,
+                "proxy: android.app.IActivityManager\$Stub\$Proxy.reportSizeConfigurations"
+            )
+            return try {
+                method.invoke(iActivityManager, *(args ?: arrayOfNulls<Any>(0)))
+            } catch (th: Throwable) {
+                null
+            }
+        }
+        return method?.invoke(iActivityManager, *(args ?: arrayOfNulls<Any>(0)))
     }
-    return method?.invoke(iActivityManager, *(args ?: arrayOfNulls<Any>(0)))
-  }
 }

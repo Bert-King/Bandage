@@ -15,42 +15,42 @@ internal const val TAG = "Bandage"
  */
 object Bandage {
 
-  internal lateinit var config: IBandageConfig
+    internal lateinit var config: IBandageConfig
 
-  @JvmStatic
-  fun install(config: IBandageConfig) {
-    check(this::config.isInitialized.not()) {
-      "Bandage already installed"
-    }
-    if (!config.isEnable) return
+    @JvmStatic
+    fun install(config: IBandageConfig) {
+        check(this::config.isInitialized.not()) {
+            "Bandage already installed"
+        }
+        if (!config.isEnable) return
 
-    this.config = config
-    BandageLogger.logger = config.logger
-    config.application.registerActivityLifecycleCallbacks(ActivityManager.getInstance())
+        this.config = config
+        BandageLogger.logger = config.logger
+        config.application.registerActivityLifecycleCallbacks(ActivityManager.getInstance())
 
-    Thread.setDefaultUncaughtExceptionHandler(
-      BandageExceptionHandler(
-        config,
-        Thread.getDefaultUncaughtExceptionHandler()
-      )
-    )
+        Thread.setDefaultUncaughtExceptionHandler(
+            BandageExceptionHandler(
+                config,
+                Thread.getDefaultUncaughtExceptionHandler()
+            )
+        )
 
-    if (config.enableActivityThreadHook) {
-      ActivityThreadHandlerHooker.hook()
+        if (config.enableActivityThreadHook) {
+            ActivityThreadHandlerHooker.hook()
+        }
+        if (config.enableViewRootImplHandlerHook) {
+            ViewRootImplHandlerHooker.hook(config.application)
+        }
+        if (config.enableFixReportSizeConfigurations) {
+            FixReportSizeConfigurations.hook()
+        }
     }
-    if (config.enableViewRootImplHandlerHook) {
-      ViewRootImplHandlerHooker.hook(config.application)
-    }
-    if (config.enableFixReportSizeConfigurations) {
-      FixReportSizeConfigurations.hook()
-    }
-  }
 
-  @JvmStatic
-  fun addDynamicBandageData(list: List<DynamicBandageData>) {
-    if (config.enableDynamicBandageInterceptor) {
-      BandageDynamicExceptionManager.addData(list)
+    @JvmStatic
+    fun addDynamicBandageData(list: List<DynamicBandageData>) {
+        if (config.enableDynamicBandageInterceptor) {
+            BandageDynamicExceptionManager.addData(list)
+        }
     }
-  }
 
 }

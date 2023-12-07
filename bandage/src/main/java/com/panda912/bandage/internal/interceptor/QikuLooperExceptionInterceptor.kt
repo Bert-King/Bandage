@@ -10,23 +10,23 @@ import com.panda912.bandage.utils.RomUtil
  */
 internal class QikuLooperExceptionInterceptor : IExceptionInterceptor {
 
-  override fun getName() = "QikuLooperExceptionInterceptor"
+    override fun getName() = "QikuLooperExceptionInterceptor"
 
-  override fun shouldEnableOpt(): Boolean {
-    if (Build.VERSION.SDK_INT == 25) {
-      try {
-        return RomUtil.isQIKU()
-      } catch (ignored: Throwable) {
-      }
+    override fun shouldEnableOpt(): Boolean {
+        if (Build.VERSION.SDK_INT == 25) {
+            try {
+                return RomUtil.isQIKU()
+            } catch (ignored: Throwable) {
+            }
+        }
+        return false
     }
-    return false
-  }
 
-  override fun intercept(thread: Thread, throwable: Throwable): Boolean {
-    if (thread.name == "view-assit-thread" && throwable.message == "Only one Looper may be created per thread") {
-      BandageHelper.uploadCrash(throwable)
-      return true
+    override fun intercept(thread: Thread, throwable: Throwable): Boolean {
+        if (thread.name == "view-assit-thread" && throwable.message == "Only one Looper may be created per thread") {
+            BandageHelper.uploadCrash(throwable)
+            return true
+        }
+        return false
     }
-    return false
-  }
 }
