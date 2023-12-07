@@ -1,7 +1,7 @@
 package com.panda912.bandage.internal.interceptor
 
 import com.panda912.bandage.BandageHelper
-import com.panda912.bandage.IExceptionInterceptor
+import com.panda912.bandage.interfaces.IExceptionInterceptor
 
 /**
  * https://stackoverflow.com/questions/2214336/java-lang-indexoutofboundsexception-getchars-7-0-has-end-before-start

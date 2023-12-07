@@ -1,7 +1,7 @@
 package com.panda912.bandage.sample.bandage
 
 import android.util.Log
-import com.panda912.bandage.IBandageBehavior
+import com.panda912.bandage.interfaces.IBandageBehavior
 import com.panda912.bandage.internal.data.DynamicBandageData
 import com.panda912.bandage.utils.ActivityManager
 

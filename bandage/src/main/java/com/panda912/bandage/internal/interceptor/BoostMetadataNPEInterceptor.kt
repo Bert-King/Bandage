@@ -1,6 +1,6 @@
 package com.panda912.bandage.internal.interceptor
 
-import com.panda912.bandage.IExceptionInterceptor
+import com.panda912.bandage.interfaces.IExceptionInterceptor
 
 /**
  * Created by panda on 2022/4/8 9:43

@@ -1,6 +1,6 @@
 package com.panda912.bandage.internal
 
-import com.panda912.bandage.ILogger
+import com.panda912.bandage.interfaces.ILogger
 
 /**
  * Created by panda on 2021/12/10 12:20.

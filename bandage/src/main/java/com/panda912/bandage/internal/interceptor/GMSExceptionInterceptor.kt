@@ -1,7 +1,7 @@
 package com.panda912.bandage.internal.interceptor
 
 import com.panda912.bandage.BandageHelper
-import com.panda912.bandage.IExceptionInterceptor
+import com.panda912.bandage.interfaces.IExceptionInterceptor
 
 /**
  * https://stackoverflow.com/questions/47726111/gms-illegalstateexception-results-have-already-been-set

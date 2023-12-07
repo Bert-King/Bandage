@@ -2,7 +2,7 @@ package com.panda912.bandage.internal.interceptor
 
 import android.os.Build
 import com.panda912.bandage.BandageHelper
-import com.panda912.bandage.IExceptionInterceptor
+import com.panda912.bandage.interfaces.IExceptionInterceptor
 import com.panda912.bandage.internal.BandageLogger
 
 /**

@@ -1,4 +1,4 @@
-package com.panda912.bandage
+package com.panda912.bandage.interfaces
 
 /**
  * Created by panda on 2021/12/13 17:56

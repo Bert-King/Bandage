@@ -1,6 +1,9 @@
 package com.panda912.bandage
 
 import android.os.Looper
+import com.panda912.bandage.interfaces.IBandageConfig
+import com.panda912.bandage.interfaces.ICrashChecker
+import com.panda912.bandage.interfaces.IExceptionInterceptor
 import com.panda912.bandage.internal.checker.CrashTimesChecker
 import com.panda912.bandage.internal.checker.SerialCrashChecker
 import com.panda912.bandage.internal.data.CrashData
@@ -33,8 +36,8 @@ import com.panda912.bandage.utils.isOutOfMemoryError
  * Created by panda on 2021/12/22 18:09
  */
 class BandageExceptionHandler(
-  private val config: IBandageConfig,
-  private val handler: Thread.UncaughtExceptionHandler?,
+    private val config: IBandageConfig,
+    private val handler: Thread.UncaughtExceptionHandler?,
 ) : Thread.UncaughtExceptionHandler {
 
     private var crashTimes = 0

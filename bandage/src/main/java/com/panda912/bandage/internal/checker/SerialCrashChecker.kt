@@ -1,7 +1,7 @@
 package com.panda912.bandage.internal.checker
 
 import android.util.Log
-import com.panda912.bandage.ICrashChecker
+import com.panda912.bandage.interfaces.ICrashChecker
 import com.panda912.bandage.internal.data.CrashData
 
 /**
