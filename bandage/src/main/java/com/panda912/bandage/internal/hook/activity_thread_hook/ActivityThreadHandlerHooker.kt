@@ -96,29 +96,39 @@ internal object ActivityThreadHandlerHooker {
      * 获取修复消息的SparseArray
      * @return 修复消息的SparseArray，如果不存在则返回null
      */
-    private fun getFixMessages(): SparseArray<ActivityThreadFixMessage>? {
+   private fun getFixMessages(): SparseArray<ActivityThreadFixMessage>? {
+        // Create a SparseArray to store the ActivityThreadFixMessage
         val msgs = SparseArray<ActivityThreadFixMessage>()
+        // Get the SDK version
         val sdkInt = Build.VERSION.SDK_INT
-        if (sdkInt >= Build.VERSION_CODES.P) {
-            msgs.put(110, ActivityThreadFixMessage(110, "BIND_APPLICATION"))
-            msgs.put(134, ActivityThreadFixMessage(134, "SCHEDULE_CRASH"))
-            msgs.put(137, ActivityThreadFixMessage(137, "SLEEPING"))
-            msgs.put(143, ActivityThreadFixMessage(143, "REQUEST_ASSIST_CONTEXT_EXTRAS"))
-            if (sdkInt <= 30) {
-                msgs.put(159, ActivityThreadFixMessage(159, "EXECUTE_TRANSACTION"))
+        // Check the SDK version
+        when {
+            sdkInt >= Build.VERSION_CODES.P -> {
+
+                // Android版本大于P版本(Android 28),即Android9.0 以上
+                msgs.put(110, ActivityThreadFixMessage(110, "BIND_APPLICATION"))
+                msgs.put(134, ActivityThreadFixMessage(134, "SCHEDULE_CRASH"))
+                msgs.put(137, ActivityThreadFixMessage(137, "SLEEPING"))
+                msgs.put(143, ActivityThreadFixMessage(143, "REQUEST_ASSIST_CONTEXT_EXTRAS"))
+                if (sdkInt <= 30) {
+                    // Android 28（9.0） ~ Android 30(11.0))
+                    msgs.put(159, ActivityThreadFixMessage(159, "EXECUTE_TRANSACTION"))
+                }
             }
-        } else {
-            // http://androidxref.com/8.1.0_r33/xref/frameworks/base/core/java/android/app/ActivityThread.java
-            msgs.put(100, ActivityThreadFixMessage(100, "LAUNCH_ACTIVITY"))
-            msgs.put(101, ActivityThreadFixMessage(101, "PAUSE_ACTIVITY"))
-            msgs.put(103, ActivityThreadFixMessage(103, "STOP_ACTIVITY_SHOW"))
-            msgs.put(104, ActivityThreadFixMessage(104, "STOP_ACTIVITY_HIDE"))
-            msgs.put(107, ActivityThreadFixMessage(107, "RESUME_ACTIVITY"))
-            msgs.put(109, ActivityThreadFixMessage(109, "DESTROY_ACTIVITY"))
-            msgs.put(110, ActivityThreadFixMessage(110, "BIND_APPLICATION"))
-            msgs.put(134, ActivityThreadFixMessage(134, "SCHEDULE_CRASH"))
-            msgs.put(137, ActivityThreadFixMessage(137, "SLEEPING"))
-            msgs.put(143, ActivityThreadFixMessage(143, "REQUEST_ASSIST_CONTEXT_EXTRAS"))
+            else -> {
+                // Android版本小于P版本(Android 28),即Android9.0 以下
+                // http://androidxref.com/8.1.0_r33/xref/frameworks/base/core/java/android/app/ActivityThread.java
+                msgs.put(100, ActivityThreadFixMessage(100, "LAUNCH_ACTIVITY"))
+                msgs.put(101, ActivityThreadFixMessage(101, "PAUSE_ACTIVITY"))
+                msgs.put(103, ActivityThreadFixMessage(103, "STOP_ACTIVITY_SHOW"))
+                msgs.put(104, ActivityThreadFixMessage(104, "STOP_ACTIVITY_HIDE"))
+                msgs.put(107, ActivityThreadFixMessage(107, "RESUME_ACTIVITY"))
+                msgs.put(109, ActivityThreadFixMessage(109, "DESTROY_ACTIVITY"))
+                msgs.put(110, ActivityThreadFixMessage(110, "BIND_APPLICATION"))
+                msgs.put(134, ActivityThreadFixMessage(134, "SCHEDULE_CRASH"))
+                msgs.put(137, ActivityThreadFixMessage(137, "SLEEPING"))
+                msgs.put(143, ActivityThreadFixMessage(143, "REQUEST_ASSIST_CONTEXT_EXTRAS"))
+            }
         }
 
         return if (msgs.size() != 0) filterValidMessages(msgs) else null
