@@ -94,6 +94,7 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.core:core:1.8.0'
     compileOnly(tasks.getByName("generateAndroidStubJar").outputs.files)
 }
 
