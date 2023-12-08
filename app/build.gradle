@@ -54,6 +54,9 @@ dependencies {
     // https://developer.android.google.cn/kotlin/ktx?hl=en#room
     implementation "androidx.room:room-ktx:2.4.3"
 
-    //https://developer.android.google.cn/kotlin/ktx?hl=en#viewmodel
+    // https://developer.android.google.cn/kotlin/ktx?hl=en#viewmodel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+
+    // https://github.com/lulululbj/AndroidUtilCodeKTX
+    implementation 'luyao.util.ktx:AndroidUtilKTX:0.0.5'
 }

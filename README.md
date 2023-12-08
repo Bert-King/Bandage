@@ -15,6 +15,8 @@ Bandage : 一个轻量级的处理线上Crash的Android库，它可以帮助你�
 
 ![diagram](./media/Bandage-Diagram.png)
 
+[detekt文档](https://detekt.dev/docs/intro)
+
 
 ----
 
