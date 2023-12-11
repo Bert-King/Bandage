@@ -39,4 +39,10 @@ Android的Handler都被玩花了，但万变不离其宗。
 [抖音主线程消息调度优化 实现](https://juejin.cn/post/7306327158130016271?utm_source=gold_browser_extension)
 
 
+## 参考
+[Android稳定性：可远程配置化的Looper兜底框架](https://juejin.cn/post/7198466997288566842)
+[Android稳定性：Looper兜底框架实现线上容灾- 2](https://juejin.cn/post/7297035708429598754)
+
+
+
 
