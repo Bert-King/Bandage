@@ -96,7 +96,7 @@ internal object ActivityThreadHandlerHooker {
      * 获取修复消息的SparseArray
      * @return 修复消息的SparseArray，如果不存在则返回null
      */
-   private fun getFixMessages(): SparseArray<ActivityThreadFixMessage>? {
+    private fun getFixMessages(): SparseArray<ActivityThreadFixMessage>? {
         // Create a SparseArray to store the ActivityThreadFixMessage
         val msgs = SparseArray<ActivityThreadFixMessage>()
         // Get the SDK version

@@ -14,6 +14,10 @@ class SampleApplication : Application() {
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
+        /**
+         * seal :未知的，密封的
+         * unseal :开启，解封的
+         */
         Reflection.unseal(base)
     }
 

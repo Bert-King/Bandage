@@ -1,6 +1,7 @@
 package com.panda912.bandage.sample
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 
@@ -17,6 +18,10 @@ class MainActivity : Activity() {
 
         findViewById<Button>(R.id.btn_npe).setOnClickListener {
             println(address!!.length)
+        }
+
+        findViewById<Button>(R.id.btn_reflection).setOnClickListener {
+            startActivity(Intent(this, ReflectionActivity::class.java))
         }
     }
 }

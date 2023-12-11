@@ -8,6 +8,10 @@ Bandage: 绷带
 
 [Bandage的Wiki](https://github.com/Bert-King/Bandage/wiki)
 
+[FreeReflection](https://github.com/tiann/FreeReflection)
+> FreeReflection is a library that lets you use reflection without any restriction above Android P (includes Q and R).
+
+
 Bandage : 一个轻量级的处理线上Crash的Android库，它可以帮助你避免线上Crash问题。
 > 它可以帮助你快速定位和解决线上问题。并进行兜底，避免线上Crash
 

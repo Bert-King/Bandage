@@ -4,39 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".ReflectionActivity">
 
-    <Button
-        android:id="@+id/btn_divide"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/tv_sdk_info"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="crash 10 / 0"
+        android:text="SDK信息"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btn_npe"
+        android:id="@+id/btn_test_VMRuntime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="NPE"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_divide" />
-
-
-    <Button
-        android:id="@+id/btn_reflection"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="实验Reflection库"
+        android:text="查看VMRuntime"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_npe" />
+        app:layout_constraintTop_toBottomOf="@id/tv_sdk_info" />
+
+    <Button
+        android:id="@+id/btn_test_activityThread_h"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="查看ActivityThread中的内部类H的变量"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_test_VMRuntime" />
+
+    <Button
+        android:id="@+id/btn_test_activityThread"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="查看ActivityThread"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_test_activityThread_h" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -37,7 +37,12 @@ android {
 }
 
 dependencies {
+    //  https://github.com/tiann/FreeReflection
+    //  ( lets you use reflection without any restriction above Android P (includes Q and R).)
     implementation 'com.github.tiann:FreeReflection:3.1.0'
+    //3.2.0  It is compatible with Android U.
+//    implementation 'com.github.tiann:FreeReflection:3.2.0'
+
     implementation project(":bandage")
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.10"
     implementation "androidx.constraintlayout:constraintlayout:2.1.4"
@@ -58,5 +63,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
 
     // https://github.com/lulululbj/AndroidUtilCodeKTX
-    implementation 'luyao.util.ktx:AndroidUtilKTX:0.0.5'
+//    implementation 'luyao.util.ktx:AndroidUtilKTX:0.0.5'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.4.+'
 }
