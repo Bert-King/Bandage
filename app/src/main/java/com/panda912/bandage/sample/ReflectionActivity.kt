@@ -24,6 +24,9 @@ class ReflectionActivity : AppCompatActivity() {
             "onCreate:version-sdk:${Build.VERSION.SDK_INT},fingerprint:${Build.FINGERPRINT}"
         )
 
+        findViewById<TextView>(R.id.tv_sdk_info).text =
+            "version-sdk:${Build.VERSION.SDK_INT},fingerprint:${Build.FINGERPRINT}"
+
         findViewById<TextView>(R.id.btn_test_VMRuntime).setOnClickListener {
             try {
                 val clazz = Class.forName("dalvik.system.VMRuntime")
