@@ -32,4 +32,11 @@ Bandage : 一个轻量级的处理线上Crash的Android库，它可以帮助你�
 1. Android中有几种收集Activity的方式？
    1. 1. 利用Application.ActivityLifecycleCallbacks （参考：ActivityManager）
 
+----
+
+Android的Handler都被玩花了，但万变不离其宗。
+
+[抖音主线程消息调度优化 实现](https://juejin.cn/post/7306327158130016271?utm_source=gold_browser_extension)
+
+
 
