@@ -66,4 +66,6 @@ dependencies {
 //    implementation 'luyao.util.ktx:AndroidUtilKTX:0.0.5'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.4.+'
+//    https://github.com/jOOQ/jOOR
+    implementation 'org.jooq:joor:0.9.14'
 }

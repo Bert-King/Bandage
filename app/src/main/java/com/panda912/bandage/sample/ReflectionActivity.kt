@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.widget.TextView
+import org.joor.Reflect
 import java.lang.reflect.Field
 
 class ReflectionActivity : AppCompatActivity() {
@@ -38,7 +39,6 @@ class ReflectionActivity : AppCompatActivity() {
 
         findViewById<TextView>(R.id.btn_test_activityThread_h).setOnClickListener {
             try {
-                val clazz = Class.forName("android.app.ActivityThread")
                 val hClazz = Class.forName("android.app.ActivityThread\$H")
                 val fields: Array<Field> = hClazz.fields
                 for (field in fields) {
@@ -57,7 +57,7 @@ class ReflectionActivity : AppCompatActivity() {
                 val declaredField =
                     clazz.getDeclaredField("sCurrentActivityThread").apply { isAccessible = true }
 
-                val handler1 = declaredField.get(null) as Handler
+//                val handler1 = declaredField.get(null) as Handler
 
 
                 // ? 这里调用了静态方法currentActivityThread，返回的是ActivityThread实例
@@ -70,7 +70,7 @@ class ReflectionActivity : AppCompatActivity() {
                  * 1. 需要注意的是：
                  * 获取mH变量的对象后，需要再访问mH变量。即mH.get(null)
                  */
-                Log.d(TAG, "invoke:${invoke},\n declaredField:${handler1}")
+                Log.d(TAG, "invoke:${invoke},\ndeclaredField:${declaredField.get(null)}")
 
                 val mHField = clazz.getDeclaredField("mH").apply {
                     isAccessible = true
@@ -78,6 +78,22 @@ class ReflectionActivity : AppCompatActivity() {
                 val handler = mHField[invoke] as Handler
                 Log.d(TAG, "call getCurrentActivityThread success.:${handler}")
             } catch (e: Throwable) {
+                Log.e(TAG, "Exception:$e")
+            }
+        }
+
+        /**
+         * 通过Joor反射库获取ActivityThread的mH变量
+         */
+        findViewById<TextView>(R.id.btn_test_activityThread_joor).setOnClickListener {
+            try {
+                val mainHandler =
+                    Reflect.onClass("android.app.ActivityThread").field("sCurrentActivityThread")
+                        .field("mH").get<Handler>()
+                Log.d(TAG, " get mainHandler success:${mainHandler}")
+
+            } catch (e: Throwable) {
+                e.printStackTrace()
                 Log.e(TAG, "Exception:$e")
             }
         }
