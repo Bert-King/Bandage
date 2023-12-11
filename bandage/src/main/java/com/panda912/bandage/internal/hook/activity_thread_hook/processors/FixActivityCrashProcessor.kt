@@ -8,6 +8,7 @@ import com.panda912.bandage.internal.hook.activity_thread_hook.ActivityThreadFix
 import com.panda912.bandage.internal.BandageLogger
 import com.panda912.bandage.internal.hook.activity_thread_hook.Processor
 import com.panda912.bandage.utils.ActivityManager
+import com.panda912.bandage.utils.isNonexistent
 import com.panda912.bandage.utils.isOutOfMemoryError
 
 
@@ -53,9 +54,7 @@ internal class FixActivityCrashProcessor(
     }
 
     private fun finishCrashActivity(message: ActivityThreadFixMessage, th: Throwable) {
-        val msgName = message.msgName
-
-        when (msgName) {
+        when (message.msgName) {
             RESUME_ACTIVITY,
             PAUSE_ACTIVITY,
             STOP_ACTIVITY_SHOW,
@@ -64,7 +63,7 @@ internal class FixActivityCrashProcessor(
             -> {
                 BandageLogger.w(TAG, "finish fatal activity.", th)
                 val activity: Activity? = ActivityManager.getInstance().getCurActivity()
-                if (!ActivityManager.getInstance().isDestroyed(activity)) {
+                if (!activity.isNonexistent()) {
                     activity?.finish()
                 }
             }
