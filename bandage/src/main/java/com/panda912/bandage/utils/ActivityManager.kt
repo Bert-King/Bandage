@@ -15,7 +15,11 @@ import java.util.concurrent.CopyOnWriteArrayList
  * 思考：这里为什么要用CopyOnWriteArrayList？
  * 在并发情况下，性能更好
  *
+ * Android获取当前的Activty
+ * https://blog.csdn.net/Jason_HD/article/details/81702126
+ *
  */
+
 class ActivityManager : Application.ActivityLifecycleCallbacks {
 
     companion object {
