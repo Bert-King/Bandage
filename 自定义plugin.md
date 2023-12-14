@@ -30,3 +30,11 @@
 
 >解决办法：找到settings.gradle文件，将buildSrc的注释去掉。
 
+
+为了方便，我们考虑使用KSL的方式
+>在Android Studio中的build.gradle.kts文件中，plugins { kotlin-dsl }的作用是启用Kotlin DSL。 
+> Kotlin DSL是Gradle构建文件的一种替代语法，使用Kotlin编程语言编写构建脚本。
+> 相比于Groovy DSL，Kotlin DSL提供了更好的代码完整性和错误提示，以及更简洁和可读的代码结构。  
+> 通过在build.gradle.kts文件中添加plugins { kotlin-dsl }，您可以使用Kotlin编写构建脚本，而不是使用Groovy。
+> 这将使您能够利用Kotlin的特性和语法优势来编写构建文件，提高构建文件的可读性和可维护性。
+
