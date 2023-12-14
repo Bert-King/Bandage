@@ -6,13 +6,23 @@ plugins {
 
 import com.bert.plugin.GreetingPlugin
 import com.bert.plugin.GreetingPlugin2
+import com.bert.plugin.GreetingPlugin3
+
 
 //Apply the plugin
 apply plugin: GreetingPlugin
 apply plugin: GreetingPlugin2
+apply plugin: GreetingPlugin3
+
 
 // Configure the extension
 greeting.message = 'Configure the extension'
+
+// Configure the extension using a DSL block
+greeting2 {
+    message = "Configure the extension 2"
+    greeter = "Bert"
+}
 
 android {
     compileSdk 31
