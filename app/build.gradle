@@ -5,9 +5,14 @@ plugins {
 }
 
 import com.bert.plugin.GreetingPlugin
+import com.bert.plugin.GreetingPlugin2
+
 //Apply the plugin
 apply plugin: GreetingPlugin
+apply plugin: GreetingPlugin2
 
+// Configure the extension
+greeting.message = 'Configure the extension'
 
 android {
     compileSdk 31
