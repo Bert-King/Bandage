@@ -38,3 +38,14 @@
 > 通过在build.gradle.kts文件中添加plugins { kotlin-dsl }，您可以使用Kotlin编写构建脚本，而不是使用Groovy。
 > 这将使您能够利用Kotlin的特性和语法优势来编写构建文件，提高构建文件的可读性和可维护性。
 
+---
+不一定需要在build.gradle.kts文件中显式声明plugins {.kotlin-dsl}。
+实际上，kotlin-dsl插件是默认启用的，如果你使用的是支持Kotlin DSL的Gradle版本。  
+从Gradle 7.0开始，默认情况下，Gradle会假设你正在使用Kotlin DSL，并且会自动加载kotlin-dsl插件。
+因此，如果你使用的是Gradle 7.0或更高版本，并且使用.kt文件作为构建脚本，则不需要在build.gradle.kts文件中声明plugins { .kotlin-dsl }。 
+
+但是，如果你使用的是早期版本的Gradle或是在build.gradle.kts之前使用了Groovy DSL写的build.gradle文件，
+则需要在build.gradle.kts中显式声明plugins { .kotlin-dsl }以启用Kotlin DSL。  
+总之，是否需要在build.gradle.kts中声明plugins { .kotlin-dsl }取决于你使用的Gradle版本和构建脚本的类型。
+在Gradle 7.0及更高版本中，如果你使用Kotlin DSL，则无需显式声明。
+
