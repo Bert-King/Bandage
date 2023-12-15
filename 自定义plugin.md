@@ -49,3 +49,6 @@
 总之，是否需要在build.gradle.kts中声明plugins { .kotlin-dsl }取决于你使用的Gradle版本和构建脚本的类型。
 在Gradle 7.0及更高版本中，如果你使用Kotlin DSL，则无需显式声明。
 
+---
+
+[Developing Custom Gradle Types](https://docs.gradle.org/7.5.1/userguide/custom_gradle_types.html#custom_gradle_types)
